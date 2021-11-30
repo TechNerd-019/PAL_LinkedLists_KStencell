@@ -18,3 +18,5 @@ P_BOOK createBook(double, char[], char[], int);
 P_BOOK removeBook(P_BOOK, char[]);
 P_BOOK updateList(P_BOOK, P_BOOK);
 P_BOOK searchTitle(P_BOOK lisitOfBooks, char bookTitle[]);
+void saveFile(P_BOOK listofBooks);
+void readFile(P_BOOK listofBooks);

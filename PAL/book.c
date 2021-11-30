@@ -94,3 +94,49 @@ P_BOOK searchTitle(P_BOOK listOfBooks, char bookTitle[])
 	return NULL;
 
 }
+
+void saveFile(P_BOOK listofBooks) {
+	FILE* fp;
+
+	fp = fopen("BookList_File-TN.txt", "w+");
+	P_BOOK currentBook = listofBooks;
+
+	while (currentBook->next != NULL) {
+
+		fprintf(fp, "%d\n", currentBook->ISBN);
+		fprintf(fp, "%s\n", currentBook->bookAuthor);
+		fprintf(fp, "%s\n", currentBook->bookTitle);
+		fprintf(fp, "%d\n", currentBook->volumeNumber);
+
+		currentBook = currentBook->next;
+	}
+
+	fclose(fp);
+}
+
+void readFile(P_BOOK listofBooks) {
+	FILE* fp;
+
+	fp = fopen("BookList_File-TN.txt", "w+");
+	char tempISBN[MAXLEN];
+	char tempBookAuthor[MAXLEN];
+	char tempBookTitle[MAXLEN];
+	char tempVolume[MAXLEN];
+	P_BOOK tempBook;
+
+	P_BOOK currentBook = listofBooks;
+
+	for (int i = 0; i < 3; i++) {
+
+		fgets(tempISBN, MAXLEN, fp);
+		fgets(tempBookAuthor, MAXLEN, fp);
+		fgets(tempBookTitle, MAXLEN, fp);
+		fgets(tempVolume, MAXLEN, fp);
+
+		tempBook = createBook((double)tempISBN, tempBookAuthor, tempBookTitle, (int)tempVolume);
+		listofBooks = updateList(listofBooks, tempBook);
+	}
+
+	fclose(fp);
+
+}
